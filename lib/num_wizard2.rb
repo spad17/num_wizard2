@@ -26,7 +26,7 @@ module NumWizard2
   end
 
   # Тест Ферма (вероятностный, Las Vegas)
-  def self.fermat_prime?(n, iterations: 10)
+  def self.fermat_prime?(n, iterations = 10)
     return true if n == 2 || n == 3
     return false if n < 2 || n.even?
     iterations.times do
@@ -35,6 +35,28 @@ module NumWizard2
     end
     true
   end
+
+  def self.find_prime_lasvegas(min_bits = 8, maxit = 1000)
+    min_val = 2**min_bits
+    max_val = 2**(min_bits + 5)
+    it = 0
+    while it < maxit
+      cand = rand(min_val..max_val)
+      cand |=1
+
+      it += 1
+      next unless fermat_prime?(cand, 3)
+      if prime?(cand)
+        return {
+          prime: cand,
+          it: it,
+          bits: cand.to_s(2).length
+        }
+      end
+    end
+    {error: "Не найдено простое число за #{maxit} попыток"}
+  end
+
 
   # Быстрое возведение в степень по модулю
   def self.mod_exp(base, exp, mod)
