@@ -37,25 +37,32 @@ module NumWizard2
   end
 
   def self.find_prime_lasvegas(min_bits = 8, maxit = 1000)
-    min_val = 2**min_bits
-    max_val = 2**(min_bits + 5)
-    it = 0
-    while it < maxit
-      cand = rand(min_val..max_val)
-      cand |=1
+  # Ограничиваем диапазон для надёжности
+  min_bits = [[min_bits.to_i, 4].max, 16].min
+  
+  min_val = 2**min_bits
+  max_val = 2**(min_bits + 4)  # Чуть меньший диапазон для стабильности
+  it = 0
+  
+  while it < maxit
+    # Безопасная генерация большого числа
+    cand = min_val + rand(max_val - min_val)
+    cand |= 1  # Делаем нечётным
 
-      it += 1
-      next unless fermat_prime?(cand, 3)
-      if prime?(cand)
-        return {
-          prime: cand,
-          it: it,
-          bits: cand.to_s(2).length
-        }
-      end
+    it += 1
+    next unless fermat_prime?(cand, 3)
+    
+    if prime?(cand)
+      return {
+        prime: cand,
+        it: it,
+        bits: cand.to_s(2).length
+      }
     end
-    {error: "Не найдено простое число за #{maxit} попыток"}
   end
+  
+  { error: "Не найдено простое число за #{maxit} попыток" }
+end
 
 
   # Быстрое возведение в степень по модулю
