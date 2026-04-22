@@ -1,4 +1,4 @@
-# lib/num_wizard2.rb
+
 
 module NumWizard2
   VERSION = "1.0.0"

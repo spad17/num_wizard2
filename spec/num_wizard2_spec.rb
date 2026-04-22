@@ -1,4 +1,6 @@
 # spec/num_wizard_spec.rb
+# spec/num_wizard2_spec.rb
+require "spec_helper"
 require "num_wizard2"
 require "rspec"
 

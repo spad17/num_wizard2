@@ -1,9 +1,20 @@
-# NumWizard
+# 🤖 NumWizard Bot
 
-Простая математическая библиотека для ДЗ по университету.
+Telegram-бот для гема `num_wizard2`.
 
-## Установка
+## 🚀 Запуск
 
 ```bash
-gem build num_wizard2.gemspec
-gem install num_wizard2-1.0.0.gem
+# 1. Клонировать
+git clone https://github.com/spad17/num_wizard2.git
+cd num_wizard_bot
+
+# 2. Установить зависимости
+bundle install
+
+# 3. Настроить токен
+cp .env.example .env
+# Открой .env и вставь токен от @BotFather
+
+# 4. Запустить
+ruby lib/num_wizard_bot.rb
